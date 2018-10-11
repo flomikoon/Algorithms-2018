@@ -65,7 +65,7 @@ public class JavaTasks {
                 while (str.length() < 6) {
                     str.insert(0, "0");
                 }
-                String stroka = str.substring(0, 2) + ":" + str.substring(2, 4) + ":" + str.substring(4);
+                String stroka = str.substring(0, 2) + ":" + str.substring(2, 4) + ":" + str.substring(4) + "\n";
                 writer.write(stroka);
                 i++;
             }
@@ -162,6 +162,7 @@ public class JavaTasks {
             while (i != arrofInt.length) {
                 StringBuilder str = new StringBuilder("" + String.valueOf((double) arrofInt[i] / 10));
                 writer.write(String.valueOf(str));
+                writer.write("\n");
                 i++;
             }
             writer.close();
