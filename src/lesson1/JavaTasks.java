@@ -2,6 +2,11 @@ package lesson1;
 
 import kotlin.NotImplementedError;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @SuppressWarnings("unused")
 public class JavaTasks {
     /**
@@ -33,8 +38,45 @@ public class JavaTasks {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     static public void sortTimes(String inputName, String outputName) {
-        throw new NotImplementedError();
+        List<Integer> list = new ArrayList<Integer>();
+        String[] s;
+        String string;
+        try {
+            File file = new File(inputName);
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                s = line.split(":");
+                string = s[0] + s[1] + s[2];
+                list.add(Integer.parseInt(string));
+            }
+            br.close();
+            fr.close();
+            Integer[] arrofInt = null;
+            arrofInt = list.toArray(new Integer[list.size()]);
+            Arrays.sort(arrofInt);
+            FileOutputStream exit = new FileOutputStream(outputName);
+            int i = 0;
+            File file1 = new File(outputName);
+            FileWriter writer = new FileWriter(file1);
+            while (i != arrofInt.length) {
+                StringBuilder str = new StringBuilder("" + arrofInt[i]);
+                while (str.length() < 6) {
+                    str.insert(0, "0");
+                }
+                String stroka = str.substring(0, 2) + ":" + str.substring(2, 4) + ":" + str.substring(4);
+                writer.write(stroka);
+                i++;
+            }
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
     }
+
+
 
     /**
      * Сортировка адресов
@@ -97,7 +139,36 @@ public class JavaTasks {
      * 121.3
      */
     static public void sortTemperatures(String inputName, String outputName) {
-        throw new NotImplementedError();
+        ArrayList<Integer> list = new ArrayList<>();
+        String[] s;
+        String string;
+        try {
+            File file = new File(inputName);
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                list.add((int) (Double.valueOf(line) * 10));
+            }
+            br.close();
+            fr.close();
+            Integer[] arrofInt = null;
+            arrofInt = list.toArray(new Integer[list.size()]);
+            Arrays.sort(arrofInt);
+            FileOutputStream exit = new FileOutputStream(outputName);
+            int i = 0;
+            File file1 = new File(outputName);
+            FileWriter writer = new FileWriter(file1);
+            while (i != arrofInt.length) {
+                StringBuilder str = new StringBuilder("" + String.valueOf((double) arrofInt[i] / 10));
+                writer.write(String.valueOf(str));
+                i++;
+            }
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
     }
 
     /**
