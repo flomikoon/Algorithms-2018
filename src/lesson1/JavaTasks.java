@@ -4,8 +4,11 @@ import kotlin.NotImplementedError;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static java.lang.Double.max;
+import static java.lang.StrictMath.min;
 
 @SuppressWarnings("unused")
 public class JavaTasks {
@@ -54,27 +57,28 @@ public class JavaTasks {
             br.close();
             fr.close();
             Integer[] arrofInt = null;
-            arrofInt = list.toArray(new Integer[list.size()]);
-            Arrays.sort(arrofInt);
+            Collections.sort(list);
             FileOutputStream exit = new FileOutputStream(outputName);
-            int i = 0;
             File file1 = new File(outputName);
             FileWriter writer = new FileWriter(file1);
-            while (i != arrofInt.length) {
-                StringBuilder str = new StringBuilder("" + arrofInt[i]);
+            for (Integer aList : list) {
+                StringBuilder str = new StringBuilder("" + aList);
                 while (str.length() < 6) {
                     str.insert(0, "0");
                 }
-                String stroka = str.substring(0, 2) + ":" + str.substring(2, 4) + ":" + str.substring(4) + "\n";
-                writer.write(stroka);
-                i++;
+                str.insert(2, ":");
+                str.insert(5, ":");
+                writer.write(String.valueOf(str));
+                writer.write("\n");
             }
             writer.close();
-
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
+
+    //Трудоемкость: O(n*log(n))
+    //Ресурсоемкость: R(n)
 
 
 
@@ -139,7 +143,7 @@ public class JavaTasks {
      * 121.3
      */
     static public void sortTemperatures(String inputName, String outputName) {
-        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Double> list = new ArrayList<>();
         String[] s;
         String string;
         try {
@@ -148,30 +152,47 @@ public class JavaTasks {
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
-                list.add((int) (Double.valueOf(line) * 10));
+                list.add((Double.valueOf(line)));
             }
             br.close();
             fr.close();
-            Integer[] arrofInt = null;
-            arrofInt = list.toArray(new Integer[list.size()]);
-            Arrays.sort(arrofInt);
+            bucketSort(list);
             FileOutputStream exit = new FileOutputStream(outputName);
-            int i = 0;
             File file1 = new File(outputName);
             FileWriter writer = new FileWriter(file1);
-            while (i != arrofInt.length) {
-                StringBuilder str = new StringBuilder("" + String.valueOf((double) arrofInt[i] / 10));
+            for (Double aList : list) {
+                StringBuilder str = new StringBuilder("" + String.valueOf(aList / 10.0));
                 writer.write(String.valueOf(str));
                 writer.write("\n");
-                i++;
             }
             writer.close();
-
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
 
+    static private void bucketSort(List<Double> list) {
+        double max = Double.MIN_VALUE;
+        double min = Double.MAX_VALUE;
+
+        for (Double element : list) {
+            max = max(element, max);
+            min = min(element, min);
+        }
+        max *= 10;
+        min *= 10;
+        int[] buckets = new int[(int) (max) - (int) (min) + 1];
+        for (double element : list) {
+            buckets[(int) (element * 10) - (int) min]++;
+        }
+        int arrayIndex = 0;
+        for (int i = 0; i < buckets.length; i++) {
+            for (int j = buckets[i]; j > 0; j--) {
+                list.set(arrayIndex, i + min);
+                arrayIndex++;
+            }
+        }
+    }
     /**
      * Сортировка последовательности
      *

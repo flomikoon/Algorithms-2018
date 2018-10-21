@@ -3,6 +3,10 @@ package lesson2;
 import kotlin.NotImplementedError;
 import kotlin.Pair;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")
@@ -32,7 +36,39 @@ public class JavaAlgorithms {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) {
-        throw new NotImplementedError();
+        List<Integer> list = new ArrayList<>();
+        Integer i1 = null;
+        Integer i2 = null;
+        int min = 0;
+        int max = 0;
+        try {
+            File file = new File(inputName);
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                list.add((Integer.parseInt(line)));
+            }
+            br.close();
+            fr.close();
+
+            int res = Integer.MIN_VALUE;
+            for (int i = 1; i < list.size(); i++) {
+                if (list.get(min) > list.get(i)) {
+                    min = i;
+                } else {
+                    if (list.get(i) - list.get(min) > res) {
+                        res = list.get(i) - list.get(min);
+                        i1 = min;
+                        i2 = i;
+                        System.out.print(list.get(i1) + " " + list.get(i2));
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+        return new Pair<>(i1 + 1, i2 + 1);
     }
 
     /**
