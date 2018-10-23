@@ -51,7 +51,6 @@ public class JavaAlgorithms {
             }
             br.close();
             fr.close();
-
             int res = Integer.MIN_VALUE;
             for (int i = 1; i < list.size(); i++) {
                 if (list.get(min) > list.get(i)) {
@@ -59,16 +58,15 @@ public class JavaAlgorithms {
                 } else {
                     if (list.get(i) - list.get(min) > res) {
                         res = list.get(i) - list.get(min);
-                        i1 = min;
-                        i2 = i;
-                        System.out.print(list.get(i1) + " " + list.get(i2));
+                        i1 = min + 1;
+                        i2 = i + 1;
                     }
                 }
             }
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
-        return new Pair<>(i1 + 1, i2 + 1);
+        return new Pair<>(i1, i2);
     }
 
     /**
@@ -133,8 +131,35 @@ public class JavaAlgorithms {
      * вернуть ту из них, которая встречается раньше в строке first.
      */
     static public String longestCommonSubstring(String firs, String second) {
-        throw new NotImplementedError();
+        char[] first = firs.toCharArray();
+        char[] seconds = second.toCharArray();
+        String maxString = "";
+        int maxLenght = 0;
+        int indexMaxLenght;
+
+        int[][] matrix = new int[first.length + 1][seconds.length + 1];
+
+        for (int i = 0; i < first.length + 1; i++) {
+            for (int j = 0; j < seconds.length + 1; j++) {
+                if (i > 0 && j > 0) {
+                    if (first[i - 1] == seconds[j - 1]) {
+                        matrix[i][j] = matrix[i - 1][j - 1] + 1;
+                        int stringLenght = matrix[i][j];
+                        if (maxLenght < stringLenght) {
+                            maxLenght = stringLenght;
+                            indexMaxLenght = j;
+                            maxString = second.substring(indexMaxLenght - maxLenght, indexMaxLenght);
+                        }
+                    }
+                }
+            }
+        }
+
+        return maxString;
     }
+
+    //Трудоемкость O(n*m)
+    //Ресурсоемкость O(n*m)
 
     /**
      * Число простых чисел в интервале

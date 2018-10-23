@@ -78,7 +78,7 @@ public class JavaTasks {
     }
 
     //Трудоемкость: O(n*log(n))
-    //Ресурсоемкость: R(n)
+    //Ресурсоемкость: O(n)
 
 
 
@@ -170,6 +170,9 @@ public class JavaTasks {
             System.out.print(e.getMessage());
         }
     }
+
+    //Трудоемкость O(n)
+    //Ресурсоемкость R(n)
 
     static private void bucketSort(List<Double> list) {
         double max = Double.MIN_VALUE;
