@@ -12,9 +12,9 @@ class JavaAlgorithmsTest {
 
     @Test
     void optimizeBuyAndSell() throws IOException {
-        // assertEquals(new Pair<>(16, 125), (JavaAlgorithms.optimizeBuyAndSell("buysell_in4.txt")));
-        assertEquals(new Pair<>(1, 2), (JavaAlgorithms.optimizeBuyAndSell("buysell_in5.txt")));
-        assertEquals(new Pair<>(null, null), (JavaAlgorithms.optimizeBuyAndSell("buysell_in6.txt")));
+        assertEquals(new Pair<>(16, 125), (JavaAlgorithms.optimizeBuyAndSell("input/buysell_in4.txt")));
+        assertEquals(new Pair<>(1, 2), (JavaAlgorithms.optimizeBuyAndSell("input/buysell_in5.txt")));
+        assertEquals(new Pair<>(null, null), (JavaAlgorithms.optimizeBuyAndSell("input/buysell_in6.txt")));
     }
 
     @Test

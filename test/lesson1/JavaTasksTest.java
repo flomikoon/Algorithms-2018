@@ -3,7 +3,6 @@ package lesson1;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -37,21 +36,21 @@ class JavaTasksTest {
 
     @Test
     void sortTimes() {
-        JavaTasks.sortTimes("time_in3.txt", "temptime.txt");
-        assertFile("time_out3.txt", "temptime.txt");
-        JavaTasks.sortTimes("time_in1.txt", "temptime.txt");
-        assertFile("time_out1.txt", "temptime.txt");
-        JavaTasks.sortTimes("time_in2.txt", "temptime.txt");
-        assertFile("time_out2.txt", "temptime.txt");
+        JavaTasks.sortTimes("input/time_in3.txt", "input/temptime.txt");
+        assertFile("input/time_out3.txt", "temptime.txt");
+        JavaTasks.sortTimes("input/time_in1.txt", "input/temptime.txt");
+        assertFile("input/time_out1.txt", "input/temptime.txt");
+        JavaTasks.sortTimes("input/time_in2.txt", "input/temptime.txt");
+        assertFile("input/time_out2.txt", "input/temptime.txt");
     }
 
     @Test
     void sortTemperatures() {
-        JavaTasks.sortTemperatures("temp_in1.txt", "temptime.txt");
-        assertFile("temp_out1.txt", "temptime.txt");
-        JavaTasks.sortTemperatures("temp_in2.txt", "temptime.txt");
-        assertFile("temp_out2.txt", "temptime.txt");
-        JavaTasks.sortTemperatures("temp_in3.txt", "temptime.txt");
-        assertFile("temp_out3.txt", "temptime.txt");
+        JavaTasks.sortTemperatures("input/temp_in1.txt", "input/temptime.txt");
+        assertFile("input/temp_out1.txt", "input/temptime.txt");
+        JavaTasks.sortTemperatures("input/temp_in2.txt", "input/temptime.txt");
+        assertFile("input/temp_out2.txt", "input/temptime.txt");
+        JavaTasks.sortTemperatures("input/temp_in3.txt", "input/temptime.txt");
+        assertFile("input/temp_out3.txt", "input/temptime.txt");
     }
 }
