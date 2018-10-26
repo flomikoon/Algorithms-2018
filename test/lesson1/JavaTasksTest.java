@@ -37,7 +37,7 @@ class JavaTasksTest {
     @Test
     void sortTimes() {
         JavaTasks.sortTimes("input/time_in3.txt", "input/temptime.txt");
-        assertFile("input/time_out3.txt", "temptime.txt");
+        assertFile("input/time_out3.txt", "input/temptime.txt");
         JavaTasks.sortTimes("input/time_in1.txt", "input/temptime.txt");
         assertFile("input/time_out1.txt", "input/temptime.txt");
         JavaTasks.sortTimes("input/time_in2.txt", "input/temptime.txt");

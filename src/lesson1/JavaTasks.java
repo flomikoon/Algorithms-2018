@@ -41,7 +41,7 @@ public class JavaTasks {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     static public void sortTimes(String inputName, String outputName) {
-        List<Integer> list = new ArrayList<Integer>();
+        List<String> list = new ArrayList<String>();
         String[] s;
         String string;
         try {
@@ -50,25 +50,16 @@ public class JavaTasks {
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
-                s = line.split(":");
-                string = s[0] + s[1] + s[2];
-                list.add(Integer.parseInt(string));
+                list.add(line);
             }
             br.close();
             fr.close();
-            Integer[] arrofInt = null;
             Collections.sort(list);
             FileOutputStream exit = new FileOutputStream(outputName);
             File file1 = new File(outputName);
             FileWriter writer = new FileWriter(file1);
-            for (Integer aList : list) {
-                StringBuilder str = new StringBuilder("" + aList);
-                while (str.length() < 6) {
-                    str.insert(0, "0");
-                }
-                str.insert(2, ":");
-                str.insert(5, ":");
-                writer.write(String.valueOf(str));
+            for (String aList : list) {
+                writer.write(aList);
                 writer.write("\n");
             }
             writer.close();
