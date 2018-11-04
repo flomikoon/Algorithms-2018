@@ -4,10 +4,7 @@ import kotlin.NotImplementedError;
 import kotlin.Pair;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class JavaAlgorithms {
@@ -198,7 +195,85 @@ public class JavaAlgorithms {
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
      */
-    static public Set<String> baldaSearcher(String inputName, Set<String> words) {
-        throw new NotImplementedError();
+    static class Balda {
+        private static List<String[]> strings;
+        private static int width;
+        private static int height;
+        private static String[][] matrix;
+        private static String currentWord;
+        private static Set<String> result;
+        private static ArrayList<Pair<Integer, Integer>> TryPairList = new ArrayList<>();
+
+        static public Set<String> baldaSearcher(String inputName, Set<String> words) throws IOException {
+            width = 0;
+            height = 0;
+            strings = new ArrayList<>();
+            File file = new File(inputName);
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] string = line.split(" ");
+                width = string.length;
+                strings.add(string);
+                height++;
+            }
+
+            matrix = new String[height][width];
+            for (int i = 0; i < height; i++) {
+                matrix[i] = strings.get(i);
+            }
+
+            result = new HashSet<>();
+            for (String word : words) {
+                String first = String.valueOf(word.charAt(0));
+                currentWord = word;
+                for (int i = 0; i < height; i++) {
+                    for (int j = 0; j < width; j++) {
+                        if (first.equals(matrix[i][j])) {
+                            int letter = 0;
+                            TryPairList = new ArrayList<>();
+                            TryPairList.add(new Pair<>(i, j));
+                            search(i, j, letter);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        static private void search(int row, int column, int letter) {
+            if (letter != currentWord.length() - 1) {
+                String nextLetter = String.valueOf(currentWord.charAt(letter + 1));
+                if (column + 1 < width && matrix[row][column + 1].equals(nextLetter) && tryPair(TryPairList, new Pair<>(row, column + 1))) {
+                    TryPairList.add(new Pair<>(row, column + 1));
+                    search(row, column + 1, letter + 1);
+                }
+                if (column - 1 >= 0 && matrix[row][column - 1].equals(nextLetter) && tryPair(TryPairList, new Pair<>(row, column - 1))) {
+                    TryPairList.add(new Pair<>(row, column - 1));
+                    search(row, column - 1, letter + 1);
+                }
+                if (row - 1 >= 0 && matrix[row - 1][column].equals(nextLetter) && tryPair(TryPairList, new Pair<>(row - 1, column))) {
+                    TryPairList.add(new Pair<>(row - 1, column));
+                    search(row - 1, column, letter + 1);
+                }
+                if (row + 1 < height && matrix[row + 1][column].equals(nextLetter) && tryPair(TryPairList, new Pair<>(row + 1, column))) {
+                    TryPairList.add(new Pair<>(row + 1, column));
+                    search(row + 1, column, letter + 1);
+                }
+            } else
+                result.add(currentWord);
+        }
+
+        static private boolean tryPair(List<Pair<Integer, Integer>> listPair, Pair<Integer, Integer> pair) {
+            for (Pair<Integer, Integer> aList : listPair) {
+                if (aList.equals(pair)) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
+    //T = O(m^2 * n^2)
+    //R = O(m*n + tryList.size)
 }
