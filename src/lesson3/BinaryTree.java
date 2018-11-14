@@ -179,13 +179,13 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public void remove() {
-            T last = next.value;
+            T value = next.value;
 
             if (!hasNext()) {
-                BinaryTree.this.remove(last);
-                next = find(last());
+                BinaryTree.this.remove(value);
+                next = find(value);
             } else {
-                BinaryTree.this.remove(last);
+                BinaryTree.this.remove(value);
                 next();
             }
         }
