@@ -93,7 +93,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         return tree;
     }
 
-    // R = R(n)
+    // R = R(1)
     // T = O(height)
     @Override
     public boolean remove(Object o) {
@@ -157,7 +157,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
             }
             return next;
         }
-        // R = R(n)
+        // R = R(log n) т.к мы в худшем случае пройдем от вершины дерева до самого низа
         // T = O(n)
 
         @Override
@@ -191,6 +191,8 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         }
     }
 
+    //R = R(log n)
+    //T = 0(n)
     @NotNull
     @Override
     public Iterator<T> iterator() {
