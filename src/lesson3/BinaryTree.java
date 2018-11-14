@@ -131,8 +131,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     public class BinaryTreeIterator implements Iterator<T> {
         private Node<T> next;
 
-        private Node<T> tek;
-
         private Stack<Node<T>> stackNode = new Stack<>();
 
         private BinaryTreeIterator() {
@@ -148,7 +146,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          * Средняя
          */
         private Node<T> findNext() {
-            tek = next;
             next = stackNode.pop();
             Node<T> stackUpdate = next;
             if (stackUpdate.right != null) {
@@ -182,7 +179,15 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public void remove() {
-            // TODO
+            T last = next.value;
+
+            if (!hasNext()) {
+                BinaryTree.this.remove(last);
+                next = find(last());
+            } else {
+                BinaryTree.this.remove(last);
+                next();
+            }
         }
     }
 
