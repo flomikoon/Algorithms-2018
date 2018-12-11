@@ -111,7 +111,7 @@ abstract class AbstractGraphTests {
     }
 
     fun largestIndependentVertexSet(largestIndependentVertexSet: Graph.() -> Set<Graph.Vertex>) {
-        val graph = GraphBuilder().apply {
+        var graph = GraphBuilder().apply {
             val a = addVertex("A")
             val b = addVertex("B")
             val c = addVertex("C")
@@ -132,8 +132,51 @@ abstract class AbstractGraphTests {
             addConnection(g, h)
             addConnection(h, j)
         }.build()
-        val independent = graph.largestIndependentVertexSet()
+        var independent = graph.largestIndependentVertexSet()
         assertEquals(setOf(graph["A"], graph["D"], graph["E"], graph["F"], graph["G"], graph["J"]),
+                independent)
+
+        graph = GraphBuilder().apply {
+            val a = addVertex("A")
+            val b = addVertex("B")
+            val c = addVertex("C")
+            val d = addVertex("D")
+            val e = addVertex("E")
+            val f = addVertex("F")
+            val g = addVertex("G")
+            val h = addVertex("H")
+            val i = addVertex("I")
+            val j = addVertex("J")
+
+            addConnection(a, b)
+            addConnection(b, c)
+            addConnection(c, d)
+            addConnection(c, h)
+            addConnection(c, i)
+            addConnection(b, g)
+            addConnection(b, f)
+            addConnection(d, j)
+            addConnection(g, h)
+            addConnection(f, i)
+            addConnection(a, e)
+            addConnection(e, j)
+        }.build()
+        independent = graph.largestIndependentVertexSet()
+        assertEquals(setOf(graph["A"], graph["G"], graph["F"], graph["C"], graph["J"]),
+                independent)
+
+        graph = GraphBuilder().apply {
+            val f = addVertex("F")
+            val a = addVertex("A")
+            val b = addVertex("B")
+            val g = addVertex("G")
+            addConnection(f, a)
+            addConnection(f, b)
+            addConnection(a, g)
+            addConnection(b, g)
+        }.build()
+        independent = graph.largestIndependentVertexSet()
+        assertEquals(setOf(graph["F"], graph["G"]),
                 independent)
     }
 
@@ -177,6 +220,21 @@ abstract class AbstractGraphTests {
         }.build()
         val longestPath2 = graph2.longestSimplePath()
         assertEquals(10, longestPath2.length)
+
+        val graph3 = GraphBuilder().apply {
+            val b = addVertex("B")
+            val c = addVertex("C")
+            val d = addVertex("D")
+            val e = addVertex("E")
+            val a = addVertex("A")
+            addConnection(a, b)
+            addConnection(b, c)
+            addConnection(a, e)
+            addConnection(b, d)
+            addConnection(e, d)
+        }.build()
+        val longestPath3 = graph3.longestSimplePath()
+        assertEquals(4, longestPath3.length)
     }
 
 }
